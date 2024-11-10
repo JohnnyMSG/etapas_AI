@@ -18,15 +18,11 @@ public class etapa3 {
         for (int i = 0; i < listaB1.length; i++) {
             if (i < numeroCorte) {
                 binario1Parte1 = binario1Parte1 + listaB1[i];
-            } else {
-                binario1Parte2 = binario1Parte2 + listaB1[i];
             }
         }
 
         for (int i = 0; i < listaB2.length; i++) {
-            if (i < numeroCorte) {
-                binario2Parte1 = binario2Parte1 + listaB2[i];
-            } else {
+            if (i >= numeroCorte) {
                 binario2Parte2 = binario2Parte2 + listaB2[i];
             }
         }
