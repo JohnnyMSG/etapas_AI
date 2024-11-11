@@ -1,15 +1,13 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-public class etapa5 {
+public class trabalhoFinal {
 
     public static void main(String[] args) {
 
-        ArrayList<Integer> geracaoInicial = gerarVetores(50);
-        ArrayList<String> geracaoBinaria = conversaoDecimalBinario(geracaoInicial);
-        ArrayList<String> novaGeracao = gerarNovaGeracao(geracaoBinaria);
+        ArrayList<Integer> geracaoInicial = new ArrayList<>();
 
-        mutacao(novaGeracao, 1);
+        multiplicadorDeGeracoes(geracaoInicial, 5);
 
     }
 
@@ -22,7 +20,6 @@ public class etapa5 {
             geracaoInicial.add(vetor);
         }
 
-        System.out.println(geracaoInicial);
         return geracaoInicial;
     }
 
@@ -56,7 +53,6 @@ public class etapa5 {
             int diferenca = tamanhoDoBinario1 - tamanhoDoBinario2;
 
             for (int i = 0; i < diferenca; i++) {
-                System.out.print(i);
                 binario2 = "0" + binario2;
             }
 
@@ -87,19 +83,6 @@ public class etapa5 {
                 binario2Parte2 = binario2Parte2 + listaB2[i];
             }
         }
-
-        System.out.println();
-        System.out.println("============ Binários cruzados ============");
-        System.out.println();
-        System.out.println("Binario 1: " + binario1);
-        System.out.println("Binario 2: " + binario2);
-        System.out.println();
-        System.out.println("Seu corte ficou na casa: " + numeroCorte);
-        System.out.println();
-        System.out.println(binario1Parte1 + " " + binario2Parte2);
-        System.out.println();
-        System.out.println("===========================================");
-        System.out.println();
 
         return binario1Parte1 + binario2Parte2;
     }
@@ -152,26 +135,25 @@ public class etapa5 {
 
         }
 
-        System.out.println("Nova Geração em Binaários: ");
-        System.out.println(novaGeracao);
         System.out.println();
-        System.out.println("Nova Geração em Decimais: ");
-        converterNovaGeracao(novaGeracao);
+        System.out.println("Nova Geração: ");
+        System.out.println(converterNovaGeracao(novaGeracao));
+        System.out.println(novaGeracao);
 
         return novaGeracao;
     }
 
-    public static void converterNovaGeracao(ArrayList<String> geracaoBinaria) {
+    public static ArrayList<Integer> converterNovaGeracao(ArrayList<String> geracaoBinaria) {
         ArrayList<Integer> novaGeracaoDecimal = new ArrayList<>();
 
         for (String s : geracaoBinaria) {
             novaGeracaoDecimal.add(conversaoBinarioDecimal(s));
         }
 
-        System.out.println(novaGeracaoDecimal);
+        return novaGeracaoDecimal;
     }
 
-    public static void mutacao(ArrayList<String> geracao, int porcentagem) {
+    public static ArrayList<Integer> mutacao(ArrayList<String> geracao, int porcentagem) {
         ArrayList<String> novaGeracaoBinaria = new ArrayList<>();
         ArrayList<String> numerosQueSofreramMutacao = new ArrayList<>();
         Random random = new Random();
@@ -205,19 +187,39 @@ public class etapa5 {
         }
 
         System.out.println();
-        System.out.println("Geração após a mutação: ");
+        System.out.println("Nova Geração após a mutação: ");
+        System.out.println(converterNovaGeracao(novaGeracaoBinaria));
         System.out.println(novaGeracaoBinaria);
         System.out.println();
-        System.out.println("Geração em decimal após a mutação");
-        converterNovaGeracao(novaGeracaoBinaria);
-        System.out.println();
-        System.out.println();
         System.out.println("Números que sofreram mutação");
-        System.out.println("Em Binário: " + numerosQueSofreramMutacao);
         System.out.print("Em Decimal: ");
-        converterNovaGeracao(numerosQueSofreramMutacao);
+        System.out.println(converterNovaGeracao(numerosQueSofreramMutacao));
+        System.out.println("Em Binário: " + numerosQueSofreramMutacao);
+        System.out.println();
+        System.out.println("===============================================================================");
+        System.out.println();
+
+        return converterNovaGeracao(novaGeracaoBinaria);
+    }
+
+    public static void multiplicadorDeGeracoes(ArrayList<Integer> geracaoInicial, int vezes) {
+
+        for (int i = 0; i < vezes; i++) {
+            System.out.println();
+            System.out.println("============================== Geração " + (i + 1) + " ==============================");
+            System.out.println();
+            System.out.println("Geração Inicial: ");
+
+            if (geracaoInicial == null || geracaoInicial.isEmpty()) {
+                geracaoInicial = gerarVetores(50);
+            }
+            System.out.println(geracaoInicial);
+            ArrayList<String> geracaoBinaria = conversaoDecimalBinario(geracaoInicial);
+            ArrayList<String> novaGeracao = gerarNovaGeracao(geracaoBinaria);
+
+            geracaoInicial = mutacao(novaGeracao, 1);
+        }
 
     }
 
 }
-
